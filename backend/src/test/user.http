@@ -1,0 +1,26 @@
+###Registro de usuario
+POST http://localhost:3777/api/register
+Content-Type: application/json
+
+{
+    "name": "Test",
+    "lastname": "Test2",
+    "email": "test3",
+    "password": "test4"
+}
+
+###Login de usuario
+POST http://localhost:3777/api/login
+Content-Type: application/json
+
+{
+    "email": "test3",
+    "password": "test4"
+}
+
+###Ruta Protegida
+GET http://localhost:3777/api/protected
+
+
+###Logout
+POST http://localhost:3777/api/logout
