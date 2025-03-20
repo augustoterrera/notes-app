@@ -1,9 +1,10 @@
+import { Note } from "../models/note.js";
 import { NoteModel } from "../repositories/noteRepository.js";
 
 export class NoteService {
-    async create(title: string, content: string, userId: string, date: Date){
-        const note = await NoteModel.create({ title, content, userId, date });
-        return note.save();
+    async create(title: string, content: string, userId: string){
+        const note = await NoteModel.create({ title, content, userId});
+        return note;
     }
 
     async getAll(userId: string){

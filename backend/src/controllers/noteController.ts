@@ -4,24 +4,39 @@ import { NoteService } from '../services/noteService.js';
 export class NoteController {
     constructor(private noteService: NoteService) {}
 
-    async getAll(req: Request, res: Response) {
+    async getAll(req: Request, res: Response): Promise<void> {
         try {
-            const userId = req.params.userId;
+            if (!req.user || !req.user?.userId) {
+                res.status(401).json({ error: "Unauthorized" });
+                return;
+            }
+    
+            const userId = req.user.userId;
             const notes = await this.noteService.getAll(userId);
+            if (!notes) {
+                res.status(404).send({ error: "No notes found" });
+                return;
+            }
             res.status(200).send(notes);
         } catch (error) {
             if (error instanceof Error) {
                 res.status(400).send({ error: error.message });
             } else {
-                res.status(400).send({ error: 'Unknown error occurred' });
+                res.status(400).send({ error: "Unknown error occurred" });
             }
         }
     }
+    
 
     async create(req: Request, res: Response) {
         try {
-            const { title, content, userId, date } = req.body;
-            const note = await this.noteService.create(title, content, userId, date);
+            const { title, content } = req.body;
+            if (!req.user || !req.user?.userId) {
+                res.status(401).json({ error: "Unauthorized" });
+                return;
+            }
+            const userId = req.user?.userId;
+            const note = await this.noteService.create(title, content, userId);
             res.status(201).send(note);
         } catch (error) {
             if (error instanceof Error) {

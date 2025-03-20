@@ -1,0 +1,26 @@
+###Recibir todas las notas de un usuario
+GET http://localhost:3777/api/getAllNotes
+
+###Recibir una nota por ID 
+GET http://localhost:3777/api/getOneNote/67dc900ca517d875c13cd46e
+
+###Crear una nota
+POST http://localhost:3777/api/createNote
+Content-Type: application/json
+
+{
+    "title": "Nota de prueba 2",
+    "content": "Contenido de la nota de prueba 2"
+}
+
+###Actualizar una nota
+PUT http://localhost:3777/api/updateNote
+Content-Type: application/json
+
+{
+    "id": "67dc900ca517d875c13cd46e",
+    "title": "Nota de prueba 2 actualizada"
+}
+
+###Eliminar una nota
+DELETE http://localhost:3777/api/deleteNote/67dc8faca517d875c13cd467
