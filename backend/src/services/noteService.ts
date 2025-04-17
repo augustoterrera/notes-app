@@ -3,6 +3,9 @@ import { NoteModel } from "../repositories/noteRepository.js";
 
 export class NoteService {
     async create(title: string, content: string, userId: string){
+        if (!title || !content || !userId) {
+            throw new Error('Title, content, and userId are required');
+        }
         const note = await NoteModel.create({ title, content, userId});
         return note;
     }
